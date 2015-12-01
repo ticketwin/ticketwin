@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.2.2'
 
+gem 'rename'
 gem 'rails', '4.2.4'
 gem 'sqlite3'
 gem 'jbuilder', '~> 2.0'
