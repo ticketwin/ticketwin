@@ -22,4 +22,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'shoulda-matchers'
+  gem 'pry'
+  gem 'pry-byebug'
 end
