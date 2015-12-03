@@ -7,6 +7,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'active_model_serializers'
 
 gem 'devise'
+gem 'has_secure_token'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -20,4 +21,5 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'shoulda-matchers'
 end
