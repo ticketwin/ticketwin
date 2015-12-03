@@ -1,5 +1,4 @@
 class ApiController < ApplicationController
-  include Authenticable
 
   respond_to :json
 
