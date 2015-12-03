@@ -1,6 +1,8 @@
 module Api
   module V1
-    class UsersController < ApiController
+    class UsersController < AuthenticatedController
+      skip_before_action :authenticate_with_token!, only: [:show, :create]
+
       def show
         @user = User.find(params[:id])
         respond_with @user
@@ -16,8 +18,6 @@ module Api
       end
 
       def update
-        @user = User.find(params[:id])
-
         if @user.update(user_params)
           render json: @user, status: 201, location: [:api, @user]
         else

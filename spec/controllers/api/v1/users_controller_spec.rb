@@ -17,7 +17,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   end
 
   describe 'POST #create' do
-
     context 'when is successfully created' do
       before do
         @user_attributes = attributes_for :user
@@ -55,10 +54,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   end
 
   describe 'PUT/PATCH #update' do
-
     context 'when is successfully updated' do
       before do
         @user = create :user
+        api_authorization_header @user.api_token
         patch :update, { id: @user.id,
                          user: { email: 'newmail@example.com' } }
       end
@@ -75,6 +74,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context "when is not created" do
       before do
         @user = create :user
+        api_authorization_header @user.api_token
         patch :update, { id: @user.id,
                          user: { email: 'bademail.com' } }
       end
