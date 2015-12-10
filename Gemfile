@@ -19,6 +19,7 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'shoulda-matchers'
