@@ -25,4 +25,5 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'pry'
   gem 'pry-byebug'
+  gem 'database_cleaner'
 end
