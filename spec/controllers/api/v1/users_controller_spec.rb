@@ -4,6 +4,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'GET #show' do
     before do
       @user = create :user
+      api_authorization_header @user.api_token
       get :show, id: @user.id
     end
 
