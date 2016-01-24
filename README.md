@@ -35,7 +35,7 @@ manually, Pow allows you to have it always running.
 cd ~/ticketwin
 powder install
 powder link
-ln -s ~/ticketwin ~/.pow/ticketwin
+ln -s ~/ticketwin ~/.pow/tcktwn
 ```
 
 Run `powder status` and make sure your output is similar to below:
@@ -47,7 +47,7 @@ requestCount 5
 ```
 
 You can now access the ticketwin server locally by navigating to
-`http://api.ticketwin.dev` in your browser.
+`http://api.tcktwn.dev` in your browser.
 
 To shut down and start up Pow, use `powder down` and `powder up`, respectively.
 To restart the server, use `powder restart`. See
