@@ -4,7 +4,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'GET #show' do
     before do
       @user = create :user
-      api_authorization_header @user.api_token
+      api_authorization_header @user.auth_token
       get :show, id: @user.id
     end
 
@@ -58,7 +58,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context 'when is successfully updated' do
       before do
         @user = create :user
-        api_authorization_header @user.api_token
+        api_authorization_header @user.auth_token
         patch :update, { id: @user.id,
                          user: { email: 'newmail@example.com' } }
       end
@@ -75,7 +75,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context "when is not created" do
       before do
         @user = create :user
-        api_authorization_header @user.api_token
+        api_authorization_header @user.auth_token
         patch :update, { id: @user.id,
                          user: { email: 'bademail.com' } }
       end

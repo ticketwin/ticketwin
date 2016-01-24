@@ -11,12 +11,12 @@ RSpec.describe Authenticable do
   describe '#current_user' do
 
     before do
-      request.headers['Authorization'] = user.api_token
+      request.headers['Authorization'] = user.auth_token
       allow(authentication).to receive(:request).and_return request
     end
 
     it 'returns the user from the authorization header' do
-      expect(authentication.current_user.api_token).to eq user.api_token
+      expect(authentication.current_user.auth_token).to eq user.auth_token
     end
   end
 end
