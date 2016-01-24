@@ -1,4 +1,6 @@
 module ErrorRendering
+  private
+
   def render_not_found
     render_error('Not Found', :not_found)
   end

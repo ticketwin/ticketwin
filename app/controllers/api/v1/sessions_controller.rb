@@ -1,33 +1,31 @@
-module Api
-  module V1
-    class SessionsController < ApiController
-      def create
-        @user = User.find_by(email: session_params[:email])
+class Api::V1::SessionsController < ApiController
+  before_action :skip_authorization
 
-        if @user && @user.valid_password?(session_params[:password])
-          sign_in @user
-          @user.regenerate_api_token
-          @user.save
+  def create
+    @user = User.find_by(email: session_params[:email])
 
-          render json: @user, status: :ok, location: [:api, @user]
-        else
-          render_invalid_request :invalid_email_or_password
-        end
-      end
+    if @user && @user.valid_password?(session_params[:password])
+      sign_in @user
+      @user.regenerate_api_token
+      @user.save
 
-      def destroy
-        @user = User.find_by(api_token: params[:id])
-        @user.regenerate_api_token
-        @user.save
-
-        head :no_content
-      end
-
-      private
-
-      def session_params
-        params.require(:session).permit(:email, :password)
-      end
+      render json: @user, status: :ok, location: [:api, @user]
+    else
+      render_invalid_request :invalid_email_or_password
     end
+  end
+
+  def destroy
+    @user = User.find_by(api_token: params[:id])
+    @user.regenerate_api_token
+    @user.save
+
+    head :no_content
+  end
+
+  private
+
+  def session_params
+    params.require(:session).permit(:email, :password)
   end
 end

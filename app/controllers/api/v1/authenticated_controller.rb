@@ -1,8 +1,4 @@
-module Api
-  module V1
-    class AuthenticatedController < ApiController
-      include Authenticable
-      before_action :authenticate_with_token!
-    end
-  end
+class Api::V1::AuthenticatedController < ApiController
+  include Authenticable
+  before_action :authenticate_with_token!
 end
