@@ -19,6 +19,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'powder'
   gem 'byebug'
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
