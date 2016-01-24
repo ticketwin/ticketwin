@@ -1,8 +1,16 @@
-class Api::V1::UsersController < AuthenticatedController
-  skip_before_action :authenticate_with_token!, only: [:show, :create]
+class Api::V1::UsersController < Api::V1::AuthenticatedController
+  skip_before_action :authenticate_with_token!, only: :create
+  before_action :skip_authorization, only: :create
 
   def show
-    respond_with current_user
+    @user = User.find(params[:id])
+
+    if @user
+      authorize @user
+      respond_with @user
+    else
+      render_not_found
+    end
   end
 
   def create
@@ -15,6 +23,9 @@ class Api::V1::UsersController < AuthenticatedController
   end
 
   def update
+    @user = User.find(params[:id])
+    authorize @user
+
     if @user.update(user_params)
       render json: @user, status: 201, location: [:api, @user]
     else
