@@ -13,6 +13,10 @@ module ErrorRendering
     render_error(errors, :unprocessable_entity)
   end
 
+  def render_unauthenticated
+    render_error('Not authenticated', status: :unauthorized)
+  end
+
   def render_error(error, status)
     render json: { errors: error }, status: status
   end

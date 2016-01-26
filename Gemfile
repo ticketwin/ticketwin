@@ -9,8 +9,8 @@ gem 'responders'
 
 gem 'bcrypt'
 gem 'has_secure_token'
-
 gem 'pundit'
+
 gem 'figgy'
 
 group :production do
