@@ -2,10 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::SessionsController, type: :controller do
   let(:user) { create :user }
+  let(:credentials) { { email: user.email, password: password } }
 
   describe 'POST #create' do
-    let(:credentials) { { email: user.email, password: password } }
-
     before do
       post :create, { session: credentials }
     end
@@ -14,8 +13,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       let(:password) { '12345678' }
 
       it 'returns the authenticated user' do
-        user.reload
-        expect(json_response[:api_token]).to eq user.api_token
+        expect(json_response[:auth_token]).to eq user.reload.auth_token
       end
     end
 
@@ -30,11 +28,12 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:api_token) { user.api_token }
+    let(:auth_token) { user.reload.auth_token }
+    let(:password) { '12345678' }
 
     before do
-      sign_in user
-      delete :destroy, id: api_token
+      post :create, { session: credentials }
+      delete :destroy, id: auth_token
     end
 
     it 'returns no content' do
@@ -42,7 +41,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
     end
 
     it 'invalidates the current api token' do
-      expect(user.reload.api_token).not_to eq api_token
+      expect(user.reload.auth_token).not_to eq auth_token
     end
   end
 end

@@ -2,11 +2,12 @@ class Api::V1::SessionsController < ApiController
   before_action :skip_authorization
 
   def create
-    @user = User.find_by(email: session_params[:email])
+    @user = User
+      .find_by(email: session_params[:email].downcase)
+      .authenticate(session_params[:password])
 
-    if @user && @user.valid_password?(session_params[:password])
-      sign_in @user
-      @user.regenerate_api_token
+    if @user
+      @user.regenerate_auth_token
       @user.save
 
       render json: @user, status: :ok, location: [:api, @user]
@@ -16,8 +17,8 @@ class Api::V1::SessionsController < ApiController
   end
 
   def destroy
-    @user = User.find_by(api_token: params[:id])
-    @user.regenerate_api_token
+    @user = User.find_by(auth_token: params[:id])
+    @user.regenerate_auth_token
     @user.save
 
     head :no_content

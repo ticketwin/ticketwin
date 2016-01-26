@@ -7,5 +7,7 @@ RSpec.describe User, type: :model do
     expect(subject).to be_valid
   end
 
-  it { is_expected.to validate_uniqueness_of :api_token }
+  it { is_expected.to validate_uniqueness_of :auth_token }
+  it { is_expected.to validate_presence_of :email }
+  it { is_expected.to validate_uniqueness_of :email }
 end

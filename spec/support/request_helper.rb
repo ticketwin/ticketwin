@@ -4,7 +4,7 @@ module RequestHelper
   end
 
   def api_header(version = 1)
-    request.headers['Accept'] = "application/vnd.ticketwin.v#{version}"
+    request.headers['Accept'] = "application/vnd.tcktwn.v#{version}"
   end
 
   def api_response_format(format = Mime::JSON)
