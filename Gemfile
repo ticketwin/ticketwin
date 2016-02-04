@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
+ruby '2.3.0'
 
 gem 'rails', '4.2.4'
 gem 'pg'
@@ -10,8 +10,9 @@ gem 'responders'
 gem 'bcrypt'
 gem 'has_secure_token'
 gem 'pundit'
-
 gem 'figgy'
+gem 'lookup_by'
+gem 'statesman'
 
 group :production do
   gem 'unicorn'

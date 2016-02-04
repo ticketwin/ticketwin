@@ -2,6 +2,8 @@
 
 ### Setup
 
+Requires ruby 2.3.0.
+
 #### Clone the repo
 
 Clone the repo into your home directory.
