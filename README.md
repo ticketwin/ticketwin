@@ -1,5 +1,47 @@
 # TicketWin
 
+### API Documentation
+
+You can visit `api.tcktwn.dev/api` to see HTML-formatted API documentation, or 
+`api.tcktwn.dev/api.json` for JSON docs.
+
+### Authentication
+
+The API uses headless sessions by passing a valid auth token in the request headers. Log
+in by POSTing to `/sessions` with a authentication payload:
+
+```json
+{
+  sessions: {
+    email: 'user@example.com',
+    password: 'p@ssw0rd'
+  }
+}
+```
+
+If authentication is successful, a user object will be returned with a temporary auth token:
+
+```json
+{
+  users: {
+    id: 1,
+    email: 'user@example.com',
+    auth_token: '74Ydu4LuR7WzZMBBj1B8G6G1',
+    ...
+  }
+}
+```
+
+If unsuccessful:
+
+```json
+{
+  errors: 'Invalid email or password'
+}
+```
+
+Endpoints requiring authentication must set the header `Authorization => [auth_token]` or will return a 401.
+
 ### Setup
 
 Requires ruby 2.3.0.

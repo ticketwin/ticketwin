@@ -6,14 +6,14 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 
   describe 'POST #create' do
     before do
-      post :create, { session: credentials }
+      post :create, { sessions: credentials }
     end
 
     context 'when credentials are correct' do
       let(:password) { '12345678' }
 
       it 'returns the authenticated user' do
-        expect(json_response[:auth_token]).to eq user.reload.auth_token
+        expect(json_response[:users][:auth_token]).to eq user.reload.auth_token
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
     let(:password) { '12345678' }
 
     before do
-      post :create, { session: credentials }
+      post :create, { sessions: credentials }
       delete :destroy, id: auth_token
     end
 

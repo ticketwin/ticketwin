@@ -14,7 +14,7 @@ module ErrorRendering
   end
 
   def render_unauthenticated
-    render_error('Not authenticated', status: :unauthorized)
+    render_error('Not authenticated', :unauthorized)
   end
 
   def render_error(error, status)
