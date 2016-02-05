@@ -1,5 +1,7 @@
 # TicketWin
 
+[build]: https://circleci.com/gh/ticketwin/ticketwin.svg?style=shield&circle-token=c51acb99863507e7dd64ef1cd4465403d495f822 "circleci-status"
+
 ### API Documentation
 
 You can visit `api.tcktwn.dev/api` to see HTML-formatted API documentation, or 
