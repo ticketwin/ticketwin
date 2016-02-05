@@ -1,4 +1,6 @@
 class Api::V1::SessionsController < ApiController
+  include SessionsDocs
+
   before_action :skip_authorization
 
   def create
@@ -10,7 +12,7 @@ class Api::V1::SessionsController < ApiController
       @user.regenerate_auth_token
       @user.save
 
-      render json: @user, status: :ok, location: [:api, @user]
+      render json: @user, status: :ok, location: [:api, @user], root: 'users'
     else
       render_invalid_request :invalid_email_or_password
     end
@@ -27,6 +29,6 @@ class Api::V1::SessionsController < ApiController
   private
 
   def session_params
-    params.require(:session).permit(:email, :password)
+    params.require(:sessions).permit(:email, :password)
   end
 end

@@ -6,4 +6,8 @@ class ApiController < ApplicationController
   # pundit checks every action to make sure authorization is checked
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
+
+  def default_serializer_options
+    { root: params[:controller].split(?/).last }
+  end
 end

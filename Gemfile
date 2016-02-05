@@ -6,6 +6,7 @@ gem 'pg'
 gem 'jbuilder', '~> 2.0'
 gem 'active_model_serializers'
 gem 'responders'
+gem 'apipie-rails'
 
 gem 'bcrypt'
 gem 'has_secure_token'
@@ -29,4 +30,6 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'database_cleaner'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
