@@ -12,9 +12,9 @@ in by POSTing to `/sessions` with a authentication payload:
 
 ```json
 {
-  sessions: {
-    email: 'user@example.com',
-    password: 'p@ssw0rd'
+  "sessions": {
+    "email": "user@example.com",
+    "password": "p@ssw0rd"
   }
 }
 ```
@@ -23,10 +23,10 @@ If authentication is successful, a user object will be returned with a temporary
 
 ```json
 {
-  users: {
-    id: 1,
-    email: 'user@example.com',
-    auth_token: '74Ydu4LuR7WzZMBBj1B8G6G1',
+  "users": {
+    "id": 1,
+    "email": "user@example.com",
+    "auth_token": "74Ydu4LuR7WzZMBBj1B8G6G1",
     ...
   }
 }
@@ -36,7 +36,7 @@ If unsuccessful:
 
 ```json
 {
-  errors: 'Invalid email or password'
+  "errors": "Invalid email or password"
 }
 ```
 
