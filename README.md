@@ -1,6 +1,6 @@
 # TicketWin
 
-[build]: https://circleci.com/gh/ticketwin/ticketwin.svg?style=shield&circle-token=c51acb99863507e7dd64ef1cd4465403d495f822 "circleci-status"
+[![Build Status](http://circleci-badges-max.herokuapp.com/img/ticketwin/ticketwin/master?token=c51acb99863507e7dd64ef1cd4465403d495f822)](https://circleci.com/gh/ticketwin/ticketwin/tree/master)
 
 ### API Documentation
 
