@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20160207201202) do
   add_index "event_transitions", ["event_id", "sort_key"], name: "index_event_transitions_parent_sort", unique: true, using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",                            null: false
     t.integer  "organization_id",                 null: false
     t.datetime "start_time",                      null: false
     t.datetime "end_time",                        null: false

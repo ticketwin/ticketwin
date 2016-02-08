@@ -5,6 +5,7 @@ FactoryGirl.define do
     start_time   { 1.day.from_now }
     end_time     { 3.days.from_now }
     description  { FFaker::DizzleIpsum.paragraph }
+    state        { 'new' }
 
     trait :published do
       state :published

@@ -1,6 +1,10 @@
 FactoryGirl.define do
   factory :membership do
-    
-  end
+    user
+    organization
 
+    trait :ownership do
+      ownership true
+    end
+  end
 end
