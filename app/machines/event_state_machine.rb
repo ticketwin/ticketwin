@@ -16,13 +16,13 @@ class EventStateMachine
     transition from: :published, to: :ongoing
   end
 
+  event :end do
+    transition from: :ongoing,   to: :ended
+  end
+
   event :cancel do
     transition from: :new,       to: :canceled
     transition from: :published, to: :canceled
-  end
-
-  event :end do
-    transition from: :ongoing,   to: :ended
   end
 
   after_transition do |model, transition|

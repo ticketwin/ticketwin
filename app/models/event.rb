@@ -3,6 +3,8 @@ class Event < ActiveRecord::Base
 
   has_many :transitions, class_name: 'EventTransition', autosave: false
 
+  has_one :event_sale
+
   validates :name,         presence: true
   validates :organization, presence: true
   validates :state,        presence: true
