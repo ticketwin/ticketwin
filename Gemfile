@@ -14,6 +14,7 @@ gem 'pundit'
 gem 'figgy'
 gem 'lookup_by'
 gem 'statesman'
+gem 'statesman-events'
 
 group :production do
   gem 'unicorn'
