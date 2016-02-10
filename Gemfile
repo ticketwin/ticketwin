@@ -15,6 +15,7 @@ gem 'figgy'
 gem 'lookup_by'
 gem 'statesman'
 gem 'statesman-events'
+gem 'espinita'
 
 group :production do
   gem 'unicorn'
@@ -33,4 +34,5 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'awesome_print'
 end
