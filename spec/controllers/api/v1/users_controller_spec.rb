@@ -5,7 +5,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     before do
       @user = create :user
       api_authorization_header @user.auth_token
-      get :show, id: @user.id
+      get :show, id: @user.user_id
     end
 
     it 'returns the information about a reporter on a hash' do
@@ -76,7 +76,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       before do
         @user = create :user
         api_authorization_header @user.auth_token
-        patch :update, { id: @user.id,
+        patch :update, { id: @user.user_id,
                          users: { email: 'bademail.com' } }
       end
 
