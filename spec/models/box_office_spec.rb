@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe EventSale, type: :model do
-  subject(:event_sale) { create :event_sale }
+RSpec.describe BoxOffice, type: :model do
+  subject(:box_office) { create :box_office }
 
   it 'is valid' do
     expect(subject).to be_valid

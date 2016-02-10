@@ -1,4 +1,6 @@
 class Api::V1::UsersController < Api::V1::AuthenticatedController
+  include UsersDocs
+
   skip_before_action :authenticate_with_token!, only: :create
   before_action :skip_authorization, only: :create
 
