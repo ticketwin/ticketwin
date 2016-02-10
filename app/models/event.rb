@@ -1,8 +1,8 @@
 class Event < ActiveRecord::Base
+  auditable
+
   belongs_to :organization
-
   has_many :transitions, class_name: 'EventTransition', autosave: false
-
   has_one :box_office
 
   validates :name,         presence: true
