@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :event_sale do
+  factory :box_office do
     event
     state :new
     sale_start_time { 2.hours.from_now }

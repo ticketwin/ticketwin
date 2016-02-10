@@ -1,7 +1,7 @@
-class EventSale < ActiveRecord::Base
+class BoxOffice < ActiveRecord::Base
   belongs_to :event
 
-  has_many :transitions, class_name: 'EventSaleTransition', autosave: false
+  has_many :transitions, class_name: 'BoxOfficeTransition', autosave: false
 
   delegate :can_transition_to?,
     :transition_to!,
@@ -21,6 +21,6 @@ class EventSale < ActiveRecord::Base
   private
 
   def state_machine
-    @state_machine ||= EventSaleStateMachine.new(self, transition_class: EventSaleTransition, association_name: :transitions)
+    @state_machine ||= BoxOfficeStateMachine.new(self, transition_class: BoxOfficeTransition, association_name: :transitions)
   end
 end

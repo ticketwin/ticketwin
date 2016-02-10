@@ -16,6 +16,17 @@ ActiveRecord::Schema.define(version: 20160208182614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "box_offices", primary_key: "box_office_id", force: :cascade do |t|
+    t.string   "state",              default: "new", null: false
+    t.integer  "event_id",                           null: false
+    t.datetime "presale_start_time"
+    t.datetime "presale_end_time"
+    t.datetime "sale_start_time"
+    t.datetime "sale_end_time"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
   create_table "event_sale_transitions", force: :cascade do |t|
     t.string   "to_state",                     null: false
     t.text     "metadata",      default: "{}"
@@ -28,17 +39,6 @@ ActiveRecord::Schema.define(version: 20160208182614) do
 
   add_index "event_sale_transitions", ["event_sale_id", "most_recent"], name: "index_event_sale_transitions_parent_most_recent", unique: true, where: "most_recent", using: :btree
   add_index "event_sale_transitions", ["event_sale_id", "sort_key"], name: "index_event_sale_transitions_parent_sort", unique: true, using: :btree
-
-  create_table "event_sales", force: :cascade do |t|
-    t.string   "state",              default: "new", null: false
-    t.integer  "event_id",                           null: false
-    t.datetime "presale_start_time"
-    t.datetime "presale_end_time"
-    t.datetime "sale_start_time"
-    t.datetime "sale_end_time"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-  end
 
   create_table "event_transitions", force: :cascade do |t|
     t.string   "to_state",                   null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20160208182614) do
   add_index "event_transitions", ["event_id", "most_recent"], name: "index_event_transitions_parent_most_recent", unique: true, where: "most_recent", using: :btree
   add_index "event_transitions", ["event_id", "sort_key"], name: "index_event_transitions_parent_sort", unique: true, using: :btree
 
-  create_table "events", force: :cascade do |t|
+  create_table "events", primary_key: "event_id", force: :cascade do |t|
     t.string   "name",                            null: false
     t.integer  "organization_id",                 null: false
     t.datetime "start_time",                      null: false
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20160208182614) do
     t.datetime "updated_at",                      null: false
   end
 
-  create_table "memberships", force: :cascade do |t|
+  create_table "memberships", primary_key: "membership_id", force: :cascade do |t|
     t.integer  "organization_id",                 null: false
     t.integer  "user_id",                         null: false
     t.boolean  "ownership",       default: false
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20160208182614) do
   add_index "memberships", ["organization_id"], name: "index_memberships_on_organization_id", using: :btree
   add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
-  create_table "organizations", force: :cascade do |t|
+  create_table "organizations", primary_key: "organization_id", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -89,13 +89,13 @@ ActiveRecord::Schema.define(version: 20160208182614) do
   add_index "organizations_venues", ["organization_id"], name: "index_organizations_venues_on_organization_id", using: :btree
   add_index "organizations_venues", ["venue_id"], name: "index_organizations_venues_on_venue_id", using: :btree
 
-  create_table "regions", force: :cascade do |t|
+  create_table "regions", primary_key: "region_id", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", primary_key: "user_id", force: :cascade do |t|
     t.string   "email",           null: false
     t.string   "password_digest"
     t.string   "auth_token"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20160208182614) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "venues", force: :cascade do |t|
+  create_table "venues", primary_key: "venue_id", force: :cascade do |t|
     t.string   "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
