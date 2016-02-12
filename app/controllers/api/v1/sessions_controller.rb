@@ -6,7 +6,7 @@ class Api::V1::SessionsController < ApiController
   def create
     @user = User
       .find_by(email: session_params[:email].downcase)
-      .authenticate(session_params[:password])
+      &.authenticate(session_params[:password])
 
     if @user
       @user.regenerate_auth_token

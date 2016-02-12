@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::SessionsController, type: :controller do
   let(:user) { create :user }
-  let(:credentials) { { email: user.email, password: password } }
+  let(:credentials) { { email: email, password: password } }
 
   describe 'POST #create' do
     before do
@@ -10,6 +10,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
     end
 
     context 'when credentials are correct' do
+      let(:email)    { user.email }
       let(:password) { '12345678' }
 
       it 'returns the authenticated user' do
@@ -17,8 +18,19 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       end
     end
 
-    context 'when the credentials are invalid' do
+    context 'when the password is invalid' do
+      let(:email)    { user.email }
       let(:password) { 'wrong_password' }
+
+      it 'returns a json error' do
+        expect(json_response[:errors]).to eq 'Invalid email or password'
+        expect(response.status).to eq 422
+      end
+    end
+
+    context 'when the email is invalid' do
+      let(:email)    { 'not-a-valid-email' }
+      let(:password) { '12345678' }
 
       it 'returns a json error' do
         expect(json_response[:errors]).to eq 'Invalid email or password'
@@ -29,7 +41,8 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 
   describe 'DELETE #destroy' do
     let(:auth_token) { user.reload.auth_token }
-    let(:password) { '12345678' }
+    let(:email)      { user.email }
+    let(:password)   { '12345678' }
 
     before do
       post :create, { sessions: credentials }
