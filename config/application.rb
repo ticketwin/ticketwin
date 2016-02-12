@@ -25,6 +25,14 @@ module Ticketwin
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    # Set CORS policies
+    config.middleware.insert_before 0, 'Rack::Cors', debug: true, logger: -> { Rails.logger } do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: %i[get post delete put patch options head], max_age: 0
+      end
+    end
+
     config.generators do |g|
       g.test_framework :rspec, fixture: true
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
