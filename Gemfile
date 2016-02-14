@@ -17,6 +17,9 @@ gem 'lookup_by'
 gem 'statesman'
 gem 'statesman-events'
 gem 'espinita'
+gem 'carrierwave', '~> 0.10'
+gem 'fog', '~> 1.37'
+gem 'mini_magick'
 
 group :production do
   gem 'unicorn'

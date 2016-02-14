@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
   auditable
+  mount_uploader :image, AssetUploader
 
   belongs_to :organization
   has_many :transitions, class_name: 'EventTransition', autosave: false
