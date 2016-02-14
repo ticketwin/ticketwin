@@ -1,4 +1,8 @@
 module Authenticable
+  def included(host)
+    host.before_action :authenticate_with_token!
+  end
+
   def current_user
     @current_user ||= User.find_by(auth_token: request.headers['Authorization'])
   end
