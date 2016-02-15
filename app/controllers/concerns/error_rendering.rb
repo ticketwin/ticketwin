@@ -17,6 +17,10 @@ module ErrorRendering
     render_error('Not authenticated', :unauthorized)
   end
 
+  def render_missing_parameters
+    render_invalid_request 'Missing required parameters'
+  end
+
   def render_error(error, status)
     render json: { errors: error }, status: status
   end
