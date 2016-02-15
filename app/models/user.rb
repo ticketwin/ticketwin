@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, format: /@/
   validates :password, length: { in: 6..50 }, on: :create
   validates_confirmation_of :password
+  validates :password_digest, presence: true
   validates :auth_token, uniqueness: true
 
   def set_defaults
