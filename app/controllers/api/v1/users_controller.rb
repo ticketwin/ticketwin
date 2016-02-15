@@ -5,6 +5,8 @@ class Api::V1::UsersController < Api::V1::AuthenticatedController
   before_action :skip_authorization, only: :create
 
   def create
+    render_missing_parameters and return unless user_params[:password_confirmation]
+
     @user = User.new(user_params)
     if @user.save
       render json: @user, status: :created, location: [:api, @user]
