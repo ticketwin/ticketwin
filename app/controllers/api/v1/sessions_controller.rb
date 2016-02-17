@@ -9,8 +9,7 @@ class Api::V1::SessionsController < ApiController
       &.authenticate(session_params[:password])
 
     if @user
-      @user.regenerate_auth_token
-      @user.save
+      @user.regenerate_auth_token!
 
       render json: @user, status: :ok, location: [:api, @user], root: 'users'
     else
@@ -20,8 +19,7 @@ class Api::V1::SessionsController < ApiController
 
   def destroy
     @user = User.find_by(auth_token: params[:id])
-    @user.regenerate_auth_token
-    @user.save
+    @user.regenerate_auth_token!
 
     head :no_content
   end
