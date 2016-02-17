@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
   validates :password_digest, presence: true
   validates :auth_token, uniqueness: true
 
+  def regenerate_auth_token!
+    regenerate_auth_token && save
+  end
+
   def set_defaults
     self.last_touched_at ||= Time.zone.now
   end

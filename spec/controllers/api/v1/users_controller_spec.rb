@@ -5,15 +5,28 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     before do
       @user = create :user
       api_authorization_header @user.auth_token
-      get :show, id: @user.user_id
     end
 
     it 'returns the information about a reporter on a hash' do
+      get :show, id: @user.user_id
       expect(json_response[:users][:email]).to eql @user.email
     end
 
     it 'returns 200' do
+      get :show, id: @user.user_id
       expect(response.status).to eq 200
+    end
+
+    context 'when a session times out' do
+      before do
+        @user.update_column(:last_touched_at, 31.minutes.ago)
+      end
+
+      it 'deauthenticates the user' do
+        get :show, id: @user.user_id
+        expect(response.status).to eq 401
+        expect(json_response[:errors]).to eq 'Not authenticated'
+      end
     end
   end
 
@@ -33,7 +46,22 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
 
-    context 'when is not created' do
+    context 'when password confirmation does not match password' do
+      before do
+        @user_attributes = attributes_for :user
+        post :create, { users: @user_attributes.merge(password_confirmation: 'abcdefghijk') }
+      end
+
+      it 'renders an error' do
+        expect(json_response[:errors][:password_confirmation]).to include "doesn't match Password"
+      end
+
+      it 'responds with 422' do
+        expect(response.status).to eq 422
+      end
+    end
+
+    context 'when email is not valid' do
       before do
         @invalid_user_attributes = { password: "12345678",
                                      password_confirmation: "12345678" }
@@ -46,6 +74,25 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       it 'renders the json errors on why the user could not be created' do
         expect(json_response[:errors][:email]).to include "can't be blank"
+      end
+
+      it 'responds with 422' do
+        expect(response.status).to eq 422
+      end
+    end
+
+    context 'when password confirmation is not included' do
+      before do
+        @invalid_user_attributes = { email: 'bob@example.com', password: "12345678" }
+        post :create, { users: @invalid_user_attributes }
+      end
+
+      it 'renders an errors json' do
+        expect(json_response).to have_key(:errors)
+      end
+
+      it 'renders the json errors on why the user could not be created' do
+        expect(json_response[:errors]).to eq 'Missing required parameters'
       end
 
       it 'responds with 422' do
