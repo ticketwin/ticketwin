@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160214203331) do
+ActiveRecord::Schema.define(version: 20160217030911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,22 @@ ActiveRecord::Schema.define(version: 20160214203331) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
+
+  create_table "consent_types", primary_key: "consent_type_id", force: :cascade do |t|
+    t.text "consent_type", null: false
+  end
+
+  add_index "consent_types", ["consent_type"], name: "consent_types__u_consent_type", unique: true, using: :btree
+
+  create_table "consents", primary_key: "consent_id", force: :cascade do |t|
+    t.integer  "consent_type_id",  null: false
+    t.integer  "consentable_id",   null: false
+    t.string   "consentable_type", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "consents", ["consentable_type", "consentable_id"], name: "index_consents_on_consentable_type_and_consentable_id", using: :btree
 
   create_table "espinita_audits", force: :cascade do |t|
     t.integer  "auditable_id"
