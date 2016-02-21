@@ -55,4 +55,8 @@ RSpec.configure do |config|
   config.before :each, type: :controller do
     include_default_accept_headers
   end
+
+  config.before :suite do
+    Rails.application.load_seed
+  end
 end

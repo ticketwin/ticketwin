@@ -6,6 +6,10 @@ module UsersDocs
     param :email, String, required: true
     param :password, String, required: true
     param :password_confirmation, String, required: true
+    param :consents, Array, required: true do
+      param :consent_type, ['terms_of_service'], required: true
+      param :ip_address, String, desc: "User's IPv4 or IPv6 when consenting", required: true
+    end
     error 422, 'Resource has errors, unprocessable entity, possibly malformed request params'
   end
 

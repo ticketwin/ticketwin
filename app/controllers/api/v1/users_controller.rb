@@ -7,11 +7,11 @@ class Api::V1::UsersController < Api::V1::AuthenticatedController
   def create
     render_missing_parameters and return unless user_params[:password_confirmation]
 
-    @user = User.new(user_params)
-    if @user.save
-      render json: @user, status: :created, location: [:api, @user]
+    @user = CreateUser.new(user_params).execute
+    unless @user.errors?
+      render json: @user.user, status: :created, location: [:api, @user.user]
     else
-      render_model_errors @user.errors
+      render_model_errors(*@user.errors)
     end
   end
 
@@ -40,6 +40,9 @@ class Api::V1::UsersController < Api::V1::AuthenticatedController
   private
 
   def user_params
-    params.require(:users).permit(:email, :password, :password_confirmation)
+    params.require(:users).permit(
+      :email, :password, :password_confirmation,
+      consents: [:consent_type, :ip_address]
+    )
   end
 end

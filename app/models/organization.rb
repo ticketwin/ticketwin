@@ -1,4 +1,5 @@
 class Organization < ActiveRecord::Base
+  has_many :consents, as: :consentable
   has_many :memberships
   has_many :members, through: :memberships, source: :user
 
