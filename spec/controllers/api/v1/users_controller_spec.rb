@@ -32,13 +32,24 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'POST #create' do
     context 'when is successfully created' do
+      let(:user_params) do
+        {
+          email: 'donald.trump@example.com',
+          password: 'password123',
+          password_confirmation: 'password123',
+          consents: [{
+            consent_type: 'terms_of_service',
+            ip_address: '127.0.0.1'
+          }]
+        }
+      end
+
       before do
-        @user_attributes = attributes_for :user
-        post :create, { users: @user_attributes }
+        post :create, { users: user_params }
       end
 
       it 'renders the json representation for the user record just created' do
-        expect(json_response[:users][:email]).to eql @user_attributes[:email]
+        expect(json_response[:users][:email]).to eql 'donald.trump@example.com'
       end
 
       it 'responds with 201' do
@@ -58,6 +69,26 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       it 'responds with 422' do
         expect(response.status).to eq 422
+      end
+    end
+
+    context 'without consents' do
+      let(:user_params) do
+        {
+          email: 'donald.trump@example.com',
+          password: 'password123',
+          password_confirmation: 'password123',
+          consents: []
+        }
+      end
+
+      before do
+        post :create, { users: user_params }
+      end
+
+      it 'renders an error' do
+        expect(response.status).to eq 422
+        expect(json_response[:errors][:consents]).to include 'Missing required consent(s)'
       end
     end
 
