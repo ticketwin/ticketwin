@@ -12,6 +12,10 @@ module Expirable
   end
 
   def session_timeout
-    AppConfig.sessions.timeout
+    if current_user.admin?
+      AppConfig.sessions.admin_timeout
+    else
+      AppConfig.sessions.timeout
+    end
   end
 end
