@@ -11,7 +11,7 @@ class Api::V1::UsersController < Api::V1::AuthenticatedController
     unless @user.errors?
       render json: @user.user, status: :created, location: [:api, @user.user]
     else
-      render_model_errors(*@user.errors)
+      render_model_errors(@user.errors)
     end
   end
 

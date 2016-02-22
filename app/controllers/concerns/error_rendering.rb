@@ -10,7 +10,7 @@ module ErrorRendering
   end
 
   def render_model_errors(errors)
-    render_error(errors, :unprocessable_entity)
+    render_error(errors.flatten.uniq, :unprocessable_entity)
   end
 
   def render_unauthenticated
