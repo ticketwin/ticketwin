@@ -33,7 +33,7 @@ class Api::V1::UsersController < Api::V1::AuthenticatedController
     if @user.update(user_params)
       render json: @user, status: 201, location: [:api, @user]
     else
-      render_model_errors @user.errors
+      render_model_errors @user.errors.full_messages
     end
   end
 

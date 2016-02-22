@@ -64,7 +64,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it 'renders an error' do
-        expect(json_response[:errors][:password_confirmation]).to include "doesn't match Password"
+        expect(json_response[:errors]).to include "Password confirmation doesn't match Password"
       end
 
       it 'responds with 422' do
@@ -88,7 +88,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       it 'renders an error' do
         expect(response.status).to eq 422
-        expect(json_response[:errors][:consents]).to include 'Missing required consent(s)'
+        expect(json_response[:errors]).to include 'Consents are invalid or missing'
       end
     end
 
@@ -104,7 +104,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it 'renders the json errors on why the user could not be created' do
-        expect(json_response[:errors][:email]).to include "can't be blank"
+        expect(json_response[:errors]).to include "Email can't be blank"
       end
 
       it 'responds with 422' do
@@ -163,7 +163,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it 'renders the json errors on why the user could not be created' do
-        expect(json_response[:errors][:email]).to include 'is invalid'
+        expect(json_response[:errors]).to include 'Email is invalid'
       end
 
       it 'responds with 422' do

@@ -14,11 +14,9 @@ class CreateUser
 
     @user.save
 
-    if @user.errors.any?
-      errors << @user.errors.messages
-    elsif @user.consents.none? || @user.consents.any? { |c| !c.valid? }
-      errors << { consents: 'Missing required consent(s)' }
-    end
+    errors << @user.errors.full_messages if @user.errors.any?
+    errors << 'Consents are invalid or missing' if invalid_consents?
+
     self
   end
 
@@ -32,5 +30,9 @@ class CreateUser
 
   def errors?
     errors.any?
+  end
+
+  def invalid_consents?
+    @user.consents.none? || @user.consents.any? { |c| !c.valid? }
   end
 end
