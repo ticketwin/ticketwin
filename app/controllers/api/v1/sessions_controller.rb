@@ -10,8 +10,8 @@ class Api::V1::SessionsController < ApiController
 
     if @user
       @user.regenerate_auth_token!
-
-      render json: @user, status: :ok, location: [:api, @user], root: 'users'
+      @user.touch :last_touched_at
+      render 'api/v1/users/show', status: :created
     else
       render_invalid_request :invalid_email_or_password
     end
