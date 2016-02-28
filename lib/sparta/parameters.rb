@@ -31,11 +31,11 @@ module Sparta
       end
 
       def validate(params)
-        params = params.symbolize_keys
+        params = params.deep_symbolize_keys
+        validate_required(params)
         params.each do |key, value|
           dig = validate!(key)
           if value.is_a? Hash
-            binding.pry
             dig.validate(value)
           end
         end
@@ -53,7 +53,7 @@ module Sparta
         end
       end
 
-      def validate_required
+      def validate_required(params)
       end
 
       delegate :key?, to: :registry
