@@ -8,4 +8,6 @@ Rails.application.routes.draw do
       resources :sessions, only: [:create, :destroy]
     end
   end
+
+  match '*path', to: 'application#routing_error', via: %i[get post put patch delete]
 end

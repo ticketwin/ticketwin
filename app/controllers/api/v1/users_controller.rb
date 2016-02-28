@@ -7,11 +7,12 @@ class Api::V1::UsersController < Api::V1::AuthenticatedController
   def create
     render_missing_parameters and return unless user_params[:password_confirmation]
 
-    @user = CreateUser.new(user_params).execute
-    unless @user.errors?
-      render json: @user.user, status: :created, location: [:api, @user.user]
+    user = CreateUser.new(user_params).execute
+    unless user.errors?
+      @user = user.user
+      render :show, status: :created
     else
-      render_model_errors(@user.errors)
+      render_model_errors(user.errors)
     end
   end
 
@@ -20,7 +21,6 @@ class Api::V1::UsersController < Api::V1::AuthenticatedController
 
     if @user
       authorize @user
-      respond_with @user
     else
       render_not_found
     end
@@ -31,7 +31,7 @@ class Api::V1::UsersController < Api::V1::AuthenticatedController
     authorize @user
 
     if @user.update(user_params)
-      render json: @user, status: 201, location: [:api, @user]
+      render :show, status: :created
     else
       render_model_errors @user.errors.full_messages
     end

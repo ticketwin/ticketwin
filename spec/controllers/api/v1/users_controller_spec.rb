@@ -7,7 +7,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       api_authorization_header @user.auth_token
     end
 
-    it 'returns the information about a reporter on a hash' do
+    it 'returns the information about a user on a hash' do
       get :show, id: @user.user_id
       expect(json_response[:users][:email]).to eql @user.email
     end
