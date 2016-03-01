@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.0'
 
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5.2'
 gem 'rack-cors'
 gem 'pg'
 gem 'jbuilder', '~> 2.0'
