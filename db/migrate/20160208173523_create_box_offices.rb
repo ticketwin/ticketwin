@@ -4,10 +4,8 @@ class CreateBoxOffices < ActiveRecord::Migration
       t.string :state, null: false, default: 'new'
       t.belongs_to :event, null: false
 
-      t.datetime :presale_start_time
-      t.datetime :presale_end_time
-      t.datetime :sale_start_time
-      t.datetime :sale_end_time
+      t.datetime :start_time, null: false
+      t.datetime :end_time, null: false
 
       t.timestamps null: false
     end

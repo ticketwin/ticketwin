@@ -4,7 +4,7 @@ class EventStateMachine
 
   state :new, initial: true
   state :published
-  state :ongoing
+  state :live
   state :ended
   state :canceled
 
@@ -13,11 +13,11 @@ class EventStateMachine
   end
 
   event :start do
-    transition from: :published, to: :ongoing
+    transition from: :published, to: :live
   end
 
   event :end do
-    transition from: :ongoing,   to: :ended
+    transition from: :live,      to: :ended
   end
 
   event :cancel do
@@ -30,7 +30,7 @@ class EventStateMachine
     model.save!
   end
 
-  guard_transition from: :published, to: :ongoing do |model|
+  guard_transition to: :live do |model|
     model.start_time <= Time.zone.now
   end
 end

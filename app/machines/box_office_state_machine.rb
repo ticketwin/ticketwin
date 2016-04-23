@@ -1,30 +1,22 @@
-class EventSaleStateMachine
+class BoxOfficeStateMachine
   include Statesman::Machine
   include Statesman::Events
 
   state :new, initial: true
-  state :pre_sale
-  state :on_sale
-  state :post_sale
+  state :open
+  state :closed
 
-  event :start_presale do
-    transition from: :new,      to: :pre_sale
+  event :open do
+    transition from: :new,    to: :open
   end
 
-  event :start do
-    transition from: :new,      to: :on_sale
-    transition from: :pre_sale, to: :on_sale
+  event :close do
+    transition from: :new,    to: :closed
+    transition from: :open,   to: :closed
   end
 
-  event :end do
-    transition from: :pre_sale, to: :post_sale
-    transition from: :on_sale,  to: :post_sale
-  end
-
-  event :cancel do
-    transition from: :new,      to: :canceled
-    transition from: :pre_sale, to: :canceled
-    transition from: :on_sale,  to: :canceled
+  event :reopen do
+    transition from: :closed, to: :open
   end
 
   after_transition do |model, transition|

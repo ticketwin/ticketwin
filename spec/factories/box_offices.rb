@@ -1,13 +1,17 @@
 FactoryGirl.define do
   factory :box_office do
-    event
     state :new
-    sale_start_time { 2.hours.from_now }
-    sale_end_time   { event.start_time }
+    event
+    start_time { 2.hours.from_now }
+    end_time   { event.start_time }
 
-    trait :with_presale do
-      presale_start_time { 1.minute.from_now }
-      presale_end_time   { sale_start_time }
+    trait :open do
+      state :open
+      start_time { Time.zone.now }
+    end
+
+    trait :closed do
+      state :closed
     end
   end
 end
