@@ -11,31 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217032643) do
+ActiveRecord::Schema.define(version: 20160511003438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "box_office_transitions", force: :cascade do |t|
-    t.string   "to_state",                     null: false
-    t.text     "metadata",      default: "{}"
-    t.integer  "sort_key",                     null: false
-    t.integer  "box_office_id",                null: false
-    t.boolean  "most_recent",                  null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-  end
-
-  add_index "box_office_transitions", ["box_office_id", "most_recent"], name: "index_box_office_transitions_parent_most_recent", unique: true, where: "most_recent", using: :btree
-  add_index "box_office_transitions", ["box_office_id", "sort_key"], name: "index_box_office_transitions_parent_sort", unique: true, using: :btree
-
   create_table "box_offices", primary_key: "box_office_id", force: :cascade do |t|
-    t.string   "state",      default: "new", null: false
-    t.integer  "event_id",                   null: false
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "state",              default: "new", null: false
+    t.integer  "event_id",                           null: false
+    t.datetime "presale_start_time"
+    t.datetime "presale_end_time"
+    t.datetime "sale_start_time"
+    t.datetime "sale_end_time"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "consent_types", primary_key: "consent_type_id", force: :cascade do |t|
