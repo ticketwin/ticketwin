@@ -8,7 +8,6 @@ class Event < ActiveRecord::Base
   has_one :box_office
 
   validates :name,         presence: true
-  validates :organization, presence: true
   validates :state,        presence: true
   validates :start_time,   presence: true
   validates :end_time,     presence: true

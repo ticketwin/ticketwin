@@ -3,34 +3,31 @@ class EventStateMachine
   include Statesman::Events
 
   state :new, initial: true
+  state :unpublished
   state :published
-  state :live
-  state :ended
-  state :canceled
+  state :concluded
+  state :cancelled
+
+  event :unpublish do
+    transition from: :new, to: :unpublished
+  end
 
   event :publish do
-    transition from: :new,       to: :published
+    transition from: :unpbulished, to: :published
   end
 
-  event :start do
-    transition from: :published, to: :live
-  end
-
-  event :end do
-    transition from: :live,      to: :ended
+  event :conclude do
+    transition from: :published, to: :concluded
   end
 
   event :cancel do
-    transition from: :new,       to: :canceled
-    transition from: :published, to: :canceled
+    transition from: :new,         to: :cancelled
+    transition from: :unpublished, to: :cancelled
+    transition from: :published,   to: :cancelled
   end
 
   after_transition do |model, transition|
     model.state = transition.to_state
     model.save!
-  end
-
-  guard_transition to: :live do |model|
-    model.start_time <= Time.zone.now
   end
 end
