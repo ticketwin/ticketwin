@@ -10,7 +10,7 @@ module UsersDocs
       param :consent_type, ['terms_of_service'], required: true
       param :ip_address, String, desc: "User's IPv4 or IPv6 when consenting", required: true
     end
-    error 422, 'Resource has errors, unprocessable entity, possibly malformed request params'
+    error 422, 'Resource has errors, unprocessable entity, possibly malformed request'
   end
 
   spec :show do
